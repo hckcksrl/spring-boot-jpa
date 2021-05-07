@@ -57,4 +57,15 @@ public class MemberService {
         return memberRepository.findOne(memberId);
     }
 
+
+    /**
+     * member를 리턴할수 있지만 그럴경우 업데이트를 하면서 멤버를 쿼리하것이 된다.
+     * 커맨드와 쿼리를 철저하게 분리하는 정책 > CQRS(명령과 조회의 책임분리)
+     * 리턴하지 않거나 id값 정도만 반환하는 해주는것이 좋다
+     */
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
